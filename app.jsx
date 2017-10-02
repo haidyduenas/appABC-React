@@ -39,7 +39,8 @@ class Quiz extends React.Component {
         answers : [],
         count : 0,
         complete : false,
-        compare:false
+        compare:false,
+        score: 0
      };
    }
     
@@ -78,14 +79,14 @@ class Quiz extends React.Component {
         return (
             <div>
               {!this.state.compare&&<h1 className="text-center">Tus respuestas son:</h1>}
-              {this.state.compare&& <h1 className = "text-center">Respuestas correctas:</h1>}
+              {this.state.compare&& <h1 className = "text-center"> Tienes  {this.state.score} respuestas correctas:</h1>}
               {this.state.answers.map((a, i) => {
                 if (a == items[i].answer && this.state.compare) {
-                  return <p className="text-success">{i + 1}. {items[i].question}<strong>{a}</strong></p>
+                  return <p className="text-success">{i + 1}. {items[i].question}<strong>  {a}</strong></p>
                 } else if (this.state.compare) {
-                  return <p className="text-danger">{i + 1}. {items[i].question}<strong><strike>{a}</strike> {items[i].answer}</strong></p>
+                  return <p className="text-danger">{i + 1}. {items[i].question}<strong>  <strike>{a}</strike> {items[i].answer}</strong></p>
                 } else {
-                  return <p>{i + 1}. {items[i].question}<strong>{a}</strong></p>;
+                  return <p>{i + 1}. {items[i].question}  <strong>{a}</strong></p>;
                 }
               })
               }
@@ -123,8 +124,12 @@ class Quiz extends React.Component {
             this.setState({
                 count: this.state.count + 1
             })
+        if (this.state.answers[this.state.count] == items[this.state.count].answer){
+                this.setState({
+                    score : this.state.score + 1
+                })
+            }
     }
-
    render() {
       return (
         <div>
@@ -132,7 +137,7 @@ class Quiz extends React.Component {
             <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 img-question">
                     {!this.state.complete&&<img className="img-responsive img-questions" src={items[this.state.count].image}/>}
-                    {this.state.complete&&<img className="img-responsive img-questions" src="asstes/img/sou.png"/>}
+                    {this.state.complete&&<img className="img-responsive img-questions" src="assets/img/in.png"/>}
                 </div>
             </div>
             </header>
