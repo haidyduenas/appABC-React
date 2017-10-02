@@ -78,9 +78,9 @@ class Quiz extends React.Component {
         return (
             <div>
               {!this.state.compare&&<h1 className="text-center">Tus respuestas son:</h1>}
-              {this.state.compare&& <h1 className = "text-center">Respuestas correctas:</h1>   }
+              {this.state.compare&& <h1 className = "text-center">Respuestas correctas:</h1>}
               {this.state.answers.map((a, i) => {
-                if (a == items[i].answers && this.state.compare) {
+                if (a == items[i].answer && this.state.compare) {
                   return <p className="text-success">{i + 1}. {items[i].question}<strong>{a}</strong></p>
                 } else if (this.state.compare) {
                   return <p className="text-danger">{i + 1}. {items[i].question}<strong><strike>{a}</strike> {items[i].answer}</strong></p>
@@ -130,15 +130,14 @@ class Quiz extends React.Component {
             </header>
             <div className="row content ">
                 <div className="progress-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 pogress-label">
-            </div>
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left pogress-label">
+                        <p>{this.state.count} pregunta(s) de 5</p>
+                    </div>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center questions">
                     {!this.state.complete && this.loadQuestion()}
                     {this.state.complete && this.loadAnswer()}
-                </div>
-
-                
+                </div>                
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-social">
                     <ul className="social-network social-circle">
                         <li><a href="#" className="icoFacebook" title="Facebook"><i className="fa fa-facebook"></i></a></li>

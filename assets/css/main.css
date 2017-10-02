@@ -16,7 +16,10 @@ body, h1 {
  	position: relative;
  	min-height: 90px;
  }
-
+#icon{
+	background-color: rgb(240, 11, 202  );
+	color: white;
+}
 .img-questions{
 	max-width: 120px;
 	width: 30%;
