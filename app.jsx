@@ -37,27 +37,34 @@ class Quiz extends React.Component {
       super(props);
       this.state = {
         answers : [],
+        count : 0,
      };
    }
 
+   next(){
+    
+            this.setState({
+                count: this.state.count + 1
+              })
+     }
+        
     loadQuestion() {
         return(
         <div>
             <h1 className="text-center"> 
-                {items[0].question} 
+                {items[this.state.count].question} 
             </h1>
         </div>
         )
     }
 
-    
    render() {
       return (
         <div>
             <header>
             <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 img-question">
-                    <img className="img-responsive img-questions" src={items[0].image}/>
+                    <img className="img-responsive img-questions" src={items[this.state.count].image}/>
                 </div>
             </div>
             </header>
@@ -75,18 +82,18 @@ class Quiz extends React.Component {
                 </div>
                 <div className="btn-cont answers">
                     <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button">
-                            <span className="letter">A</span>{items[0].options[0]}
+                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
+                            <span className="letter">A</span>{items[this.state.count].options[0]}
                         </button>
                     </div>
                     <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button">
-                            <span className="letter">B</span>{items[0].options[1]}
+                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
+                            <span className="letter">B</span>{items[this.state.count].options[1]}
                         </button>
                     </div>
                     <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button">
-                            <span className="letter">C</span>{items[0].options[2]}
+                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
+                            <span className="letter">C</span>{items[this.state.count].options[2]}
                         </button>
                     </div>
                 </div>
