@@ -1,7 +1,7 @@
 let items = [
     { 
         question: "La pelicula más taquillera de Pixar", 
-        options : ["El Rey Leon", "Los Increibles", "Frozen"] ,
+        options : [ "El Rey Leon", "Los Increibles", "Frozen"] ,
         image:"assets/img/fondo.png",
         answer : 2
     },
@@ -39,18 +39,19 @@ class Quiz extends React.Component {
         answers : [],
         count : 0,
         complete : false,
-        comparar :false
+        compare:false
      };
    }
     
      options(options){
         return Object.keys(options).map((key, index) => {
             let value = options[key];
+            let letters= ["A","B","C"];
             console.log(value);
             return (
             <div className={this.state.answers[this.state.count]==value? 'col-sm-4':'col-xs-12'} >
                 <button className='btn btn-huge' type="button" name="button" key={index} onClick={(e) => this.saveData(e.currentTarget, value)}>
-                  <span className='letter'>{key}</span>{value}
+                  <span className='letter'>{letters[index]}</span>{value}
                 </button>
             </div>
             ); 
