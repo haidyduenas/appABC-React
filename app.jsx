@@ -92,7 +92,7 @@ class Quiz extends React.Component {
               }
               <div className='text-center'>
                 {!this.state.compare && <button className='btn-lg btnDark' onClick={() => this.compare()}>Submit</button>}
-                {this.state.compare&& <button className ='btn-lg btnDark' onClick={() => this.again()}>Again </button>}
+                {this.state.compare&& <button className ='btn-lg btnDark' onClick={() => this.again()}>Star Again </button>}
               </div>
             </div>
           );
@@ -102,7 +102,8 @@ class Quiz extends React.Component {
             answers : [],
             count : 0,
             complete : false,
-            compare:false
+            compare:false,
+            score: 0
          })
     }
     compare(){
@@ -146,6 +147,11 @@ class Quiz extends React.Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left pogress-label">
                         <p>{this.state.count} pregunta(s) de 5</p>
                     </div>
+                    <div className= "progress">
+                        <div className="progress-bar"  >
+                            <span className="sr-only">100%</span>
+                        </div>
+                    </div>  
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                     {!this.state.complete && this.loadQuestion()}
