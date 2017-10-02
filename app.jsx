@@ -38,24 +38,51 @@ class Quiz extends React.Component {
       this.state = {
         answers : [],
         count : 0,
+        complete : false
      };
    }
-
-   next(){
     
-            this.setState({
-                count: this.state.count + 1
-              })
-     }
-        
+     options(options){
+        return Object.keys(options).map((key, index) => {
+            let value = options[key];
+            return (
+            <div className={this.state.answers[this.state.count]==value? 'col-sm-4':'col-xs-12'} >
+                <button className='btn btn-huge' type="button" name="button" key={index} onClick={(e) => this.saveData(e.currentTarget, value)}>
+                  <span className='letter'>{key}</span>{value}
+                </button>
+            </div>); 
+         })
+    }
+
     loadQuestion() {
         return(
-        <div>
-            <h1 className="text-center"> 
-                {items[this.state.count].question} 
-            </h1>
-        </div>
-        )
+            <div>
+            <div>
+                <h1 className="text-center"> 
+                    {items[this.state.count].question} 
+                </h1>
+            </div>
+            <div className="btn-cont answers">
+               {this.options(items[this.state.count].options)} 
+            </div>
+            </div>
+            )
+    }
+    
+    saveData(e,value){
+        let res = this.state.answers;
+        res[this.state.count] = value;
+        this.setState({
+          answers: res
+        })
+        if (this.state.count === items.length - 1) {
+            this.setState({
+              complete: true
+            });
+        }   
+            this.setState({
+                count: this.state.count + 1
+            })
     }
 
    render() {
@@ -78,25 +105,10 @@ class Quiz extends React.Component {
             </div>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center questions">
-                    {this.loadQuestion()}
+                    {!this.state.complete && this.loadQuestion()}
+                    {this.state.complete && this.loadQuestion()}
                 </div>
-                <div className="btn-cont answers">
-                    <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
-                            <span className="letter">A</span>{items[this.state.count].options[0]}
-                        </button>
-                    </div>
-                    <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
-                            <span className="letter">B</span>{items[this.state.count].options[1]}
-                        </button>
-                    </div>
-                    <div className="col-lg-4 col-sm-4 col-xs-12">
-                        <button className="btn btn-huge" type="button" name="button"onClick={() => this.next()}>
-                            <span className="letter">C</span>{items[this.state.count].options[2]}
-                        </button>
-                    </div>
-                </div>
+
                 
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-social">
                     <ul className="social-network social-circle">
