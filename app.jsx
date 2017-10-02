@@ -3,31 +3,31 @@ let items = [
         question: "La pelicula más taquillera de Pixar", 
         options : [ "El Rey Leon", "Los Increibles", "Frozen"] ,
         image:"assets/img/fondo.png",
-        answer : 2
+        answer : "Frozen"
     },
     { 
         question: "Pelicula animada más premiada?", 
         options:  ["Buscando a Nemo", "El rey Leon", "UP"] ,
         image :"assets/img/sou.png",
-        answer : 1
+        answer : "El rey Leon"
     },
     { 
         question: "La pelicula ganadora del Oscar a la mejor animacion 2004?", 
         options:["Enredados", "Los Increibles", "Toy Story"], 
         image:"assets/img/in.png",
-        answer : 1
+        answer : "Los Increibles"
     },
     { 
         question: "Largometraje con mas nominaciones al Oscar?", 
         options : ["Wall-E", "Monster Inc","Dory"],
         image:"assets/img/pumba.png",
-        answer : 0 
+        answer : "Wall-E"
     },
     { 
         question: "Record al debút más grande para un pelicula animada?", 
         options :["Bichos", "Bolt","Ratatouille"],
         image :"assets/img/fro.png",     
-        answer : 2
+        answer : "Ratatouille"
     }
  ];
 
@@ -76,27 +76,29 @@ class Quiz extends React.Component {
     }
     loadAnswer(question){
         return (
-            <div id='respuestas'>
-              <h1 className="text-center">Here are you answers:</h1>
-              {!this.state.comparar&&this.state.answers.map((a, i) => {
-                if (a == items[i].answers && this.state.comparar) {
+            <div>
+              {!this.state.compare&&<h1 className="text-center">Tus respuestas son:</h1>}
+              {this.state.compare&& <h1 className = "text-center">Respuestas correctas:</h1>   }
+              {this.state.answers.map((a, i) => {
+                if (a == items[i].answers && this.state.compare) {
                   return <p className="text-success">{i + 1}. {items[i].question}<strong>{a}</strong></p>
-                } else if (this.state.comparar) {
-                  return <p className="text-danger">{i + 1}. {items[i].question}<strong><strike>{a}</strike> {items[i].answers}</strong></p>
+                } else if (this.state.compare) {
+                  return <p className="text-danger">{i + 1}. {items[i].question}<strong><strike>{a}</strike> {items[i].answer}</strong></p>
                 } else {
                   return <p>{i + 1}. {items[i].question}<strong>{a}</strong></p>;
                 }
               })
               }
               <div className='text-center'>
-                <button className='btn-lg btn-dark' onClick={() => this.comparar()}>Submit</button>
+                {!this.state.compare && <button className='btn-lg btnDark' onClick={() => this.compare()}>Submit</button>}
+                {this.state.compare&& <button className ='btn-lg btnDark'>Again </button>}
               </div>
             </div>
           );
     }
-    comparar(){
+    compare(){
         this.setState({
-            comparar: true
+            compare: true
         })
     }
     saveData(e,value){
