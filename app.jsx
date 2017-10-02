@@ -49,7 +49,7 @@ class Quiz extends React.Component {
             let letters= ["A","B","C"];
             console.log(value);
             return (
-            <div className={this.state.answers[this.state.count]==value? 'col-sm-4':'col-xs-12'} >
+            <div className= 'col-lg-4 col-xs-12 text-center' >
                 <button className='btn btn-huge' type="button" name="button" key={index} onClick={(e) => this.saveData(e.currentTarget, value)}>
                   <span className='letter'>{letters[index]}</span>{value}
                 </button>
@@ -91,10 +91,18 @@ class Quiz extends React.Component {
               }
               <div className='text-center'>
                 {!this.state.compare && <button className='btn-lg btnDark' onClick={() => this.compare()}>Submit</button>}
-                {this.state.compare&& <button className ='btn-lg btnDark'>Again </button>}
+                {this.state.compare&& <button className ='btn-lg btnDark' onClick={() => this.again()}>Again </button>}
               </div>
             </div>
           );
+    }
+    again(){
+        this.setState = {
+            answers : [],
+            count : 0,
+            complete : false,
+            compare:false
+         };
     }
     compare(){
         this.setState({
@@ -102,10 +110,10 @@ class Quiz extends React.Component {
         })
     }
     saveData(e,value){
-        let res = this.state.answers;
-        res[this.state.count] = value;
+        let result = this.state.answers;
+        result[this.state.count] = value;
         this.setState({
-          answers: res
+          answers: result
         })
         if (this.state.count === items.length - 1) {
             this.setState({
@@ -134,7 +142,7 @@ class Quiz extends React.Component {
                         <p>{this.state.count} pregunta(s) de 5</p>
                     </div>
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center questions">
+                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                     {!this.state.complete && this.loadQuestion()}
                     {this.state.complete && this.loadAnswer()}
                 </div>                
