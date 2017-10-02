@@ -97,12 +97,12 @@ class Quiz extends React.Component {
           );
     }
     again(){
-        this.setState = {
+        this.setState ({
             answers : [],
             count : 0,
             complete : false,
             compare:false
-         };
+         })
     }
     compare(){
         this.setState({
