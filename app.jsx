@@ -38,20 +38,25 @@ class Quiz extends React.Component {
       this.state = {
         answers : [],
         count : 0,
-        complete : false
+        complete : false,
+        comparar :false
      };
    }
     
      options(options){
         return Object.keys(options).map((key, index) => {
             let value = options[key];
+            console.log(value);
             return (
             <div className={this.state.answers[this.state.count]==value? 'col-sm-4':'col-xs-12'} >
                 <button className='btn btn-huge' type="button" name="button" key={index} onClick={(e) => this.saveData(e.currentTarget, value)}>
                   <span className='letter'>{key}</span>{value}
                 </button>
-            </div>); 
-         })
+            </div>
+            ); 
+         }
+         
+        )
     }
 
     loadQuestion() {
@@ -68,7 +73,31 @@ class Quiz extends React.Component {
             </div>
             )
     }
-    
+    loadAnswer(question){
+        return (
+            <div id='respuestas'>
+              <h1 className="text-center">Here are you answers:</h1>
+              {!this.state.comparar&&this.state.answers.map((a, i) => {
+                if (a == items[i].answers && this.state.comparar) {
+                  return <p className="text-success">{i + 1}. {items[i].question}<strong>{a}</strong></p>
+                } else if (this.state.comparar) {
+                  return <p className="text-danger">{i + 1}. {items[i].question}<strong><strike>{a}</strike> {items[i].answers}</strong></p>
+                } else {
+                  return <p>{i + 1}. {items[i].question}<strong>{a}</strong></p>;
+                }
+              })
+              }
+              <div className='text-center'>
+                <button className='btn-lg btn-dark' onClick={() => this.comparar()}>Submit</button>
+              </div>
+            </div>
+          );
+    }
+    comparar(){
+        this.setState({
+            comparar: true
+        })
+    }
     saveData(e,value){
         let res = this.state.answers;
         res[this.state.count] = value;
@@ -91,22 +120,19 @@ class Quiz extends React.Component {
             <header>
             <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 img-question">
-                    <img className="img-responsive img-questions" src={items[this.state.count].image}/>
+                    {!this.state.complete&&<img className="img-responsive img-questions" src={items[this.state.count].image}/>}
+                    {this.state.complete&&<img className="img-responsive img-questions" src="asstes/img/sou.png"/>}
                 </div>
             </div>
             </header>
             <div className="row content ">
                 <div className="progress-container col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 pogress-label">
-                <div className="checkAnswers invisible">
-                    <h3>your progress:</h3>
-                <div className="checker"></div>
-                </div>
             </div>
                 </div>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center questions">
                     {!this.state.complete && this.loadQuestion()}
-                    {this.state.complete && this.loadQuestion()}
+                    {this.state.complete && this.loadAnswer()}
                 </div>
 
                 
